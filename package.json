@@ -1,0 +1,33 @@
+{
+  "name": "crudapi",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidlesleybatsh/"
+  },
+  "scripts": {
+    "test": "jest",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "elasticsearch": "^16.7.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "jest": "^29.3.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.15",
+    "@types/helmet": "^4.0.0",
+    "@types/node": "^18.11.18",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4"
+  },
+  "author": "David Lesley Batsh",
+  "license": "ISC"
+}

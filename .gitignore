@@ -1,0 +1,7 @@
+./config
+./deploy
+./elasticsearch/**
+./node_modules/**
+
+.env
+./DS_STORE
