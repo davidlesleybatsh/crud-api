@@ -78,4 +78,3 @@ export const search = async(searchString: any) => {
 }
 
 // createIndex();
-module.exports = { search }
