@@ -1,9 +1,9 @@
 var elasticsearch = require('elasticsearch');
-const mapping = require('../../elasticsearch/mapping.json');
+//const mapping = require('../../elasticsearch/mapping.json');
 
 
 const client = new elasticsearch.Client({
-  node: 'http://localhost:9200',
+  node: process.env.ELASTIC_INDEX,
   //host: 'http://localhost:9200',
   // httpAuth: {
   //   username: 'elastic',
@@ -41,32 +41,41 @@ const client = new elasticsearch.Client({
 
 
 //Indexing the above object
-function createIndex(){
-  client.indices.create({ 
-    index: "NAME_OF_INDEX"
-  }).then((response) => {
-    console.log('What is the index', createIndexResult);
+function createIndex() {
+  client.indices.create({
+    index: process.env.ELASTIC_INDEX
+  }).then((response: any) => {
+    console.log('What is the index',response);
 
   });
-  console.log('After all did it Happen?', )
+  console.log('After all did it Happen?',)
 }
 
 //Searching and printing the results
-async function search() {
+export const search = async(searchString: any) => {
+
+  let resultList: never[] = [];
 
   const result = await client.search({
-    index: 'NAME_OF_INDEX',
+    index: process.env.ELASTIC_INDEX,
     type: '_doc',
-    // body?: {
-    //   query: {
-    //     query_string: {
-    //       query: "STRING TO SEARCH WITH"
-    //     }
-    //   }
-    // }
+    size: 10,
+    from: 0,
+    body: {
+      query: {
+        query_string: {
+          query: searchString
+        }
+      }
+    }
     // results array [{0},{1}]
-  }).then((result) => console.log('what did i find', result?.hits?.hits))
-  return result?.hits?.hits;
+  }).then((result: { hits: { hits: [] }; }) => {
+    console.log('what did i find', result?.hits?.hits)
+    resultList = result?.hits?.hits
+  })
+
+  return resultList;
 }
-// search();
+
 // createIndex();
+module.exports = { search }

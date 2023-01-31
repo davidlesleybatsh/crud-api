@@ -22,3 +22,14 @@ A simple CRUD API
 - create build.sh with docker build & run commands
 - create docker-compose.yml
 - docker-compose  -f docker-compose.yml up
+
+<br />
+
+### Pipeline Commands
+
+- export BUILD_PROJECT=true PROJECT=myProjectName && ./build.sh
+- docker-compose -f deploy/docker-compose.yml up && DockerPush
+
+
+
+curl -i localhost:3333/api/v1/items
