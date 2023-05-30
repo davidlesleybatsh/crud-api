@@ -55,8 +55,8 @@ if [ "$BUILD_PROJECT" = "true" ] && [ "$DEPLOY_DOCKER" = "true" ]; then
 fi
 
 echo "exporting $DOCKERREPO and $VERSION to docker-compose.yml"
-cp docker-compose.yml deploy/
-cp .env deploy/
+#cp docker-compose.yml deploy/
+#cp .env deploy/
 
 # sed -i "s/dockerRepo/$DOCKERREPO/g" "deploy/docker-compose-dev.yml"
 # sed -i "s/nextVersion/$VERSION/g" "deploy/docker-compose-dev.yml"

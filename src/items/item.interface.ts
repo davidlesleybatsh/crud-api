@@ -26,6 +26,11 @@ export interface Contact {
     fax: string
 }
 
-export interface Item extends BaseItem {
+// export interface Item extends BaseItem {
+//     id: number;
+// }
+
+export interface Item {
     id: number;
+    name: string;
 }

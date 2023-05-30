@@ -1,11 +1,12 @@
-FROM node:18
+#set the base Image
+FROM node:latest
 
 # Create app directory
 WORKDIR /usr/src/app
-COPY package*.json ./
-
-RUN npm ci --only=production
+#COPY package*.json ./
 COPY . .
 
-EXPOSE 1337
+RUN npm ci --only=production
+
 CMD [ "npx", "tsx", "src/index.ts"]
+#CMD [ "npx", "run", "start"]

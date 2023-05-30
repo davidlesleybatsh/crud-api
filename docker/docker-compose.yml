@@ -1,0 +1,8 @@
+version: '3'
+services:
+  crudapi:
+    environment:
+      PORT: '1337'
+      SERVER_CONTEXT_PATH: '/api/v1/items'
+    #image: dockerRepo/crudapi:nextVersion
+    stdin_open: true

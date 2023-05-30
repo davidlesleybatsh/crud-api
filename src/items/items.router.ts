@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, query } from "express";
 import * as ItemService from "./items.service";
 import { BaseItem, Item } from "./item.interface";
 
@@ -9,28 +9,29 @@ router.get("/", async (req: Request, res: Response) => {
     try {
         const items: Item[] = await ItemService.findAll();
 
-        res.status(200).send(items);
+        res.status(200).send(items || "Hello World");
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
 
-// // GET item by id
-// router.get("/:id", async (req: Request, res: Response) => {
-//     const id: number = parseInt(req.params.id, 10);
+// GET item by id
+router.get("/:id", async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
 
-//     try {
-//         const item: Item = await ItemService.find(id);
+    try {
+        const item: Object = await ItemService.findById(id);
+        console.log("......", item)
+        
+        if (item) {
+            return res.status(200).send(item);
+        }
 
-//         if (item) {
-//             return res.status(200).send(item);
-//         }
-
-//         res.status(404).send("item not found");
-//     } catch (e: any) {
-//         res.status(500).send(e.message);
-//     }
-// });
+        res.status(404).send("item not found");
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
 
 // // POST items
 // router.post("/", async (req: Request, res: Response) => {

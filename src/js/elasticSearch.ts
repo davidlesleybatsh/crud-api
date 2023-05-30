@@ -1,10 +1,12 @@
+import { error } from "console";
+
 var elasticsearch = require('elasticsearch');
 //const mapping = require('../../elasticsearch/mapping.json');
 
 
 const client = new elasticsearch.Client({
   node: process.env.ELASTIC_INDEX,
-  //host: 'http://localhost:9200',
+  host: process.env.ELASTIC_HOST,
   // httpAuth: {
   //   username: 'elastic',
   //   password: '**************'
@@ -45,26 +47,22 @@ function createIndex() {
   client.indices.create({
     index: process.env.ELASTIC_INDEX
   }).then((response: any) => {
-    console.log('What is the index',response);
+    console.log('The new Index is created ',response.status);
 
   });
-  console.log('After all did it Happen?',)
 }
 
-//Searching and printing the results
-export const search = async(searchString: any) => {
-
+export const searchAll = async () => {
   let resultList: never[] = [];
 
   const result = await client.search({
     index: process.env.ELASTIC_INDEX,
-    type: '_doc',
     size: 10,
     from: 0,
     body: {
       query: {
         query_string: {
-          query: searchString
+          query: '*'
         }
       }
     }
@@ -77,4 +75,47 @@ export const search = async(searchString: any) => {
   return resultList;
 }
 
+//Searching and printing the results
+export const search = async(searchInput: any) => {
+
+  let resultList: never[] = [];
+
+  const result = await client.search({
+    index: process.env.ELASTIC_INDEX,
+    type: '_doc',
+    size: 10,
+    from: 0,
+    body: {
+      query: {
+        query_string: {
+          query: searchInput
+        }
+      }
+    }
+    // results array [{0},{1}]
+  }).then((result: { hits: { hits: [] }; }) => {
+    console.log('what did i find', result?.hits?.hits)
+    resultList = result?.hits?.hits
+  })
+
+  return resultList;
+}
+
+// Searching and printing the results
+export const searchById = async(id: number): Promise<Object> => {
+
+  let body: any[] = [];
+
+  return client.get({
+      index: process.env.ELASTIC_INDEX,
+      id: id
+  })
+  .then((response: any) => {
+    body = {...response._source};
+    return body;
+  })
+  .catch((error: any) => {
+    console.log(999, error);
+});
+}
 // createIndex();

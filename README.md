@@ -14,7 +14,7 @@ A simple CRUD API
 - docker run -p public-port:container-port tag-name-of-container
 
 - check if everythings working like it should, lets curl !!!
-    - curl -i localhost:3333/api/v1/items
+    - curl -i localhost:1337/api/v1/items
 <br />
 <br />
 

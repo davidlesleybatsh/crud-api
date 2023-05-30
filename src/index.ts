@@ -21,11 +21,11 @@ app.use(express.json());
 
 // Routes
 ///api/v1/items = this could be context_path. you name it
-app.use("/api/v1/items", router);
+app.use("/items", router);
 
 
 // Server Activation
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}, visit -> http://localhost:${PORT}`);
+    console.log(`Listening on port ${PORT}, visit -> http://localhost:${PORT}/items`);
 });
 
